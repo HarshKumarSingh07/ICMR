@@ -1,11 +1,9 @@
 import numpy as np
 from flask import Flask, request, jsonify, render_template
-import pickle
-from tensorflow.keras.models import load_model
-from tensorflow.keras.utils import to_categorical
-import tensorflow as tf
+from keras.models import load_model
 import gensim
 import pandas as pd
+import keras
 
 train = pd.read_excel("Train (1).xlsx")
 test = pd.read_excel("Test (1).xlsx")
@@ -57,7 +55,7 @@ for word, i in char_dict.items():
 def transform(features):
     encode = integer_encoding(features, char_dict) 
     max_length = 100
-    pad = tf.keras.preprocessing.sequence.pad_sequences(encode, maxlen=max_length, padding='post', truncating='post')
+    pad = keras.preprocessing.sequence.pad_sequences(encode, maxlen=max_length, padding='post', truncating='post')
     return pad
 
 
